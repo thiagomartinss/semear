@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/img/semear-favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="/css/bootstrap5.3.8/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/colors.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <title>Semear</title>
+    </head>
+    <body class="body">
+        <header>
+            <nav class="navbar navbar-expand-lg  p-3 bg-green100">
+                <div class="container-fluid">
+                    <a class="navbar-brand ms-5" href="#"><img src="/img/semear-logo.png" alt="Logo semear" style="width: auto; height: 45px;"></a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-uppercase">
+                            <li class="nav-item"><a class="nav-link btn btn-outline-success fw-semibold text-yellow100" aria-current="page" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-outline-success fw-semibold" href="#">Produtos</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-outline-success fw-semibold" href="#">Sobre nós</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-outline-success fw-semibold" href="#">Contato</a></li>
+                        </ul>
+                        <div class="me-3">
+                            <a href="#"><i class="fa-solid fa-cart-shopping fa-xl fa-beat" style="color: #0e0c0c"></i></a>
+                            <a href="#" class="btn btn-outline-success text-black100 text-uppercase ms-3" type="submit">Entrar</a>
+                            <a href="#" class="btn btn-success text-black100 text-uppercase ms-3 bg-green200" type="submit">Cadastrar</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+             <%- body %>
+        </main>
+        <footer class="container-fluid p-3 bg-green100">
+            <div class="row p-3">
+                <div class="col-6 col-md-2 mb-3">
+                    <a href="#"><img src="/img/semear-logo.png" alt="Logo semear" style="width: auto; height: 90px;"></a>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Institucional</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Missão</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Visão</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Valores</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Cartilha de ética</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Produtos e Serviços</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Sementes</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Defensivos agrícolas</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Mapeamento com drone</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <h5>Contato</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Rua: Dos Anjos, 2000 - Vila Industrial</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">CEP: 19000-010</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Presidente Prudente - SP</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Telefone: (18)3222-0101</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="#" class="nav-link p-0 text-body-secondary">Whatsapp: (18)99981-1001</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <form>
+                        <h5>Inscreva-se em nossa newsletter</h5>
+                        <p>Receba notícias e promoções.</p>
+                        <div class="input-group">
+                            <label for="newsletter1" class="visually-hidden">Email</label>
+                            <input id="newsletter1" type="email" class="form-control" placeholder="Email"/>
+                            <button class="btn btn-success text-black100 text-uppercase bg-green200" type="button">Inscreva-se</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-sm-row justify-content-center py-4 my-4 border-top">
+                <p>&copy; 2025 Vision IT. Todos os direitos reservados.</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a href="#"><i class="fa-brands fa-instagram fa-2xl" style="color: #0e0c0c"></i></a>
+                    </li>
+                    <li class="ms-3">
+                        <a href="#"><i class="fa-brands fa-facebook fa-2xl" style="color: #0e0c0c"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <script src="/js/bootstrap5.3.8/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
