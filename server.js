@@ -3,6 +3,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const server = express(); 
 
 const routerHome = require("./routes/homeRoute");
+const routeLogin = require('./routes/routeLogin');
 
 server.set("view engine", 'ejs') 
 server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
@@ -15,6 +16,7 @@ server.use(expressEjsLayouts);
 //server.use(express.json()); //Configurar a possibilidade de fazer parse em uma string JSON
 
 server.use("/", routerHome);
+server.use("/login", routeLogin);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
