@@ -1,6 +1,7 @@
 .body{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    background-color: #fafafa;
 }
 .carousel-item {
   height: 65vh;
