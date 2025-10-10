@@ -4,6 +4,10 @@ const server = express();
 
 const routerHome = require("./routes/homeRoute");
 const routeLogin = require('./routes/routeLogin');
+const routeContact = require("./routes/contactRoute");
+const routeAbout = require("./routes/aboutRoute");
+const routeRegister = require("./routes/registerRoute");
+const routeAdmin = require("./routes/adminRoute");
 
 server.set("view engine", 'ejs') 
 server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
@@ -17,6 +21,10 @@ server.use(expressEjsLayouts);
 
 server.use("/", routerHome);
 server.use("/login", routeLogin);
+server.use("/contact", routeContact);
+server.use("/about", routeAbout);
+server.use("/register", routeRegister);
+server.use("/admin", routeAdmin);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
