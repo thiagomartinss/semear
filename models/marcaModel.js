@@ -35,12 +35,12 @@ class MarcaModel {
 
     async cadastrarMarcas(){
         if(this.#marcaId == 0){
-            let sql = "INSET INTO MARCA (DESC_MARCA) VALUES (?)";
+            let sql = "INSERT INTO MARCA (`DESC_MARCA`) VALUES (?)";
             let valores = [this.#marcaNome];
 
             return await conexao.ExecutaComandoNonQuery(sql, valores);
         }else{
-            let sql = "UPDATE MARCA SET DESC_MARCA = ? WHERE ID_MARCA = ?";
+            let sql = "UPDATE MARCA SET `DESC_MARCA` = ? WHERE `ID_MARCA` = ?";
             let valores = [this.#marcaNome, this.#marcaId];
 
             return await conexao.ExecutaComandoNonQuery(sql, valores) > 0;

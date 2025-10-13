@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", function(){
             let desc = {
                 descricao: descricao,
             }
-            fetch("/usuarios/cadastrar", {
+            fetch("/listarMarca/cadastrar", {
                 method: 'POST',
-                body: JSON.stringify(obj),
+                body: JSON.stringify(desc),
                 headers: {
                     "Content-Type": "application/json",
                 }
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
             })
             .then(r=> {
                 if(r.ok) {
-                    window.location.href="/marca";
+                    window.location.href="/listarMarca";
                 }   
                 else {
                     alert(r.msg);
