@@ -12,3 +12,4 @@ Projeto integrado 3° ADS - FIPP
 - npm install express
 - npm install ejs
 - npm install express-ejs-layouts
+- npm install mysql2
