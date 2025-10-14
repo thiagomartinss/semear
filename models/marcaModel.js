@@ -46,6 +46,18 @@ class MarcaModel {
             return await conexao.ExecutaComandoNonQuery(sql, valores) > 0;
         }
     }
+
+    async obter(id){
+        let sql = "SELECT * FROM MARCA WHERE ID_MARCA = ?";
+        let valores = [id];
+        let rows = await conexao.ExecutaComando(sql,valores);
+
+        if(rows.length > 0){
+            let row = rows[0];
+            return new MarcaModel(row["ID_MARCA"], row["DESC_MARCA"]);
+        }
+        return null;
+    }
 }
 
 module.exports = MarcaModel;
