@@ -44,7 +44,7 @@
                             <td><%= value.marcaId %></td>
                             <td><%= value.marcaNome %></td>
                             <td>
-                                <a href="/marca/alterarMarca/" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMarcaAlt"><i class="fas fa-pen"></i></a>
                                 <button class="btn btn-danger btnExclusao"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
@@ -52,7 +52,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal" id="modalMarca">
+        <div class="modal fade" id="modalMarca">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -68,6 +68,28 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-success bg-green200" id="btnCadastrar">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalMarcaAlt">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Marca</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>  
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            
+                            <input type="text" class="form-control" id="descricaoMarca" placeholder="Marca" value="" >
+                            <label for="descricaoMarca">Marca</label>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success bg-green200" id="btnCadastrar">Alterar</button>
                     </div>
                 </div>
             </div>

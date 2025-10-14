@@ -26,7 +26,7 @@ server.use("/contact", routeContact);
 server.use("/about", routeAbout);
 server.use("/register", routeRegister);
 server.use("/admin", routeAdmin);
-server.use("/listarMarca", routeMarca);
+server.use("/marca", routeMarca);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");

@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("btnCadastrar").addEventListener("click", cadastrar);
 
-    document.addEventListener("show.bs.modal", function () {
-        alert("modal apareceu")
-    })
-
     function limparValidacao(){
         document.getElementById("descricaoMarca").style["border-color"] = "#ced4da";
     }
@@ -21,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let desc = {
                 descricao: descricao,
             }
-            fetch("/marca/cadastrar", {
+            fetch("/marca/alterar", {
                 method: 'POST',
                 body: JSON.stringify(desc),
                 headers: {
@@ -33,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
             })
             .then(r=> {
                 if(r.ok) {
-                    window.location.href="/marca";
+                    window.location.href="/listarMarca";
                 }   
                 else {
                     alert(r.msg);
