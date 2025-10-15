@@ -17,7 +17,7 @@ class MarcaModel {
 
     async listarMarcas() {
 
-        let sql = 'SELECT * FROM MARCA';
+        let sql = 'SELECT * FROM MARCA ORDER BY ID_MARCA ASC';
         
         var rows = await conexao.ExecutaComando(sql);
 
@@ -47,7 +47,7 @@ class MarcaModel {
         }
     }
 
-    async obter(id){
+    async buscar(id){
         let sql = "SELECT * FROM MARCA WHERE ID_MARCA = ?";
         let valores = [id];
         let rows = await conexao.ExecutaComando(sql,valores);
@@ -57,6 +57,15 @@ class MarcaModel {
             return new MarcaModel(row["ID_MARCA"], row["DESC_MARCA"]);
         }
         return null;
+    }
+
+    async excluir(id) {
+        let sql = "DELETE FROM MARCA WHERE ID_MARCA = ?";
+        let valores = [id];
+
+        let result = await conexao.ExecutaComandoNonQuery(sql, valores);
+
+        return result;
     }
 }
 
