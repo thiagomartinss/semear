@@ -5,6 +5,8 @@ const marcaController = new MarcaController();
 
 router.get("/", marcaController.marcaView);
 router.post("/cadastrar", marcaController.cadastrar);
-//router.get("/alterar/:id", marcaController.alterar);
+router.get("/buscar/:id", marcaController.buscar);
+router.post("/alterar", marcaController.alterar);
+router.post("/excluir", marcaController.excluir);
 
 module.exports = router;

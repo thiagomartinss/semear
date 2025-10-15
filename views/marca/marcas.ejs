@@ -1,4 +1,4 @@
-<script src="/js/marca/cadastrarMarca.js"></script>
+<script src="/js/marca/gerenciarMarca.js"></script>
 <div class="d-flex">
     <aside class="sidebar d-flex flex-column">
         <ul class="nav flex-column flex-grow-1">
@@ -9,7 +9,7 @@
                 <a class="nav-link" href="#"><i class="fa-solid fa-boxes-stacked fa-fw"></i> Produtos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-list fa-fw"></i> Serviços</a>
+                <a class="nav-link" href="../servico"><i class="fa-solid fa-list fa-fw"></i> Serviços</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="#"><i class="fa-solid fa-tags fa-fw"></i> Marcas</a>
@@ -44,8 +44,8 @@
                             <td><%= value.marcaId %></td>
                             <td><%= value.marcaNome %></td>
                             <td>
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMarcaAlt"><i class="fas fa-pen"></i></a>
-                                <button class="btn btn-danger btnExclusao"><i class="fas fa-trash"></i></button>
+                                <a href="#" class="btn btn-primary btnAlteracao" data-bs-toggle="modal" data-bs-target="#modalMarcaAlt" data-id="<%= value.marcaId %>" data-nome="<%= value.marcaNome %>"><i class="fas fa-pen"></i></a>
+                                <button class="btn btn-danger btnExclusao" data-bs-toggle="modal" data-bs-target="#modalMarcaDel" data-id="<%= value.marcaId %>" data-nome="<%= value.marcaNome %>"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     <% }) %>
@@ -72,6 +72,7 @@
                 </div>
             </div>
         </div>
+        <!--alterar-->
         <div class="modal fade" id="modalMarcaAlt">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -80,16 +81,38 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>  
                     <div class="modal-body">
+                        <input type="hidden" id="idMarcaAlt" value="">
                         <div class="form-floating mb-3">
-                            
-                            <input type="text" class="form-control" id="descricaoMarca" placeholder="Marca" value="" >
-                            <label for="descricaoMarca">Marca</label>
-                            
+                            <input type="text" class="form-control" id="descricaoMarcaAlt" placeholder="Marca" value="" >
+                            <label for="descricaoMarcaAlt">Marca</label>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success bg-green200" id="btnCadastrar">Alterar</button>
+                        <button type="button" class="btn btn-success bg-green200" id="btnAlterar">Alterar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--excluir-->
+        <div class="modal fade" id="modalMarcaDel">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar a exclusão da marca</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div> 
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <p>Você tem certeza que deseja excluir a marca abaixo?</p>
+                            <p><strong>Código:</strong> <span id="codigoExclusao"></span></p>
+                            <p><strong>Marca:</strong> <span id="nomeExclusao"></span></p>
+                            <input type="hidden" id="idMarcaExcluir" value="">
+                        </div>
+                    </div> 
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
                     </div>
                 </div>
             </div>
