@@ -10,7 +10,7 @@ class ServicoModel {
 
     get servicoId() { return this.#servicoId; } set servicoId(servicoId) {this.#servicoId = servicoId;}
     get servicoDesc() { return this.#servicoDesc; } set servicoDesc(servicoDesc) {this.#servicoDesc = servicoDesc;}
-    get servicoValor(){ return this.#servicoValor;} set servicoValor(servicoValor){this.#servicoValor = this.#servicoValor}
+    get servicoValor(){ return this.#servicoValor;} set servicoValor(servicoValor){this.#servicoValor = servicoValor}
 
     constructor(servicoId, servicoDesc, servicoValor) {
         this.#servicoId = servicoId
@@ -36,14 +36,14 @@ class ServicoModel {
         return listaRetorno;
     }
 
-    async cadastrarMarcas(){
+    async cadastrarServicos(){
         if(this.#servicoId == 0){
             let sql = "INSERT INTO SERVICO (`DESC_SERVICO`, `VALOR_SERVICO`) VALUES (?,?)";
             let valores = [this.#servicoDesc, this.#servicoValor];
 
             return await conexao.ExecutaComandoNonQuery(sql, valores);
         }else{
-            let sql = "UPDATE MARCA SET `DESC_SERVICO`, `VALOR_SERVICO` = ? WHERE `ID_SERVICO` = ?";
+            let sql = "UPDATE SERVICO SET `DESC_SERVICO` = ?, `VALOR_SERVICO` = ? WHERE `ID_SERVICO` = ?";
             let valores = [this.#servicoDesc, this.#servicoValor, this.#servicoId];
 
             return await conexao.ExecutaComandoNonQuery(sql, valores) > 0;

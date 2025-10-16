@@ -9,6 +9,7 @@ const routeAbout = require("./routes/aboutRoute");
 const routeRegister = require("./routes/registerRoute");
 const routeAdmin = require("./routes/adminRoute");
 const routeMarca = require("./routes/marcaRoute");
+const routeServico = require("./routes/servicoRoute");
 
 server.set("view engine", 'ejs') 
 server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
@@ -27,6 +28,7 @@ server.use("/about", routeAbout);
 server.use("/register", routeRegister);
 server.use("/admin", routeAdmin);
 server.use("/marca", routeMarca);
+server.use("/servico", routeServico);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
