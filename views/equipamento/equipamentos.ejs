@@ -1,4 +1,4 @@
-<script src="/js/marca/gerenciarMarca.js"></script>
+<script src="/js/equipamento/gerenciarEquipamento.js"></script>
 <div class="d-flex">
     <aside class="sidebar d-flex flex-column">
         <ul class="nav flex-column flex-grow-1">
@@ -12,10 +12,10 @@
                 <a class="nav-link" href="../servico"><i class="fa-solid fa-list fa-fw"></i> Serviços</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/equipamento"><i class="fa-solid fa-wrench fa-fw"></i> Equipamentos</a>
+                <a class="nav-link active" href="#"><i class="fa-solid fa-wrench fa-fw"></i> Equipamentos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#"><i class="fa-solid fa-tags fa-fw"></i> Marcas</a>
+                <a class="nav-link" href="../marca"><i class="fa-solid fa-tags fa-fw"></i> Marcas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-user fa-fw"></i> Usuários</a>
@@ -25,11 +25,10 @@
             </li>
         </ul>
     </aside>
-    <!--conteudo principal-->
     <div class="container-fluid flex-grow-1 p-4">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="text-uppercase text-green100">Marcas</h1>
-            <a href="#" class="btn btn-success text-uppercase bg-green200"  data-bs-toggle="modal" data-bs-target="#modalMarca"><i class="fa-solid fa-plus"></i> Novo</a>
+            <h1 class="text-uppercase text-green100">Equipamentos</h1>
+            <a href="#" class="btn btn-success text-uppercase bg-green200"  data-bs-toggle="modal" data-bs-target="#modalEquipamento"><i class="fa-solid fa-plus"></i> Novo</a>
         </div>
         <hr>
         <div class="table-responsive" style="margin-top: 15px;">
@@ -37,35 +36,46 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Descrição</th>
+                        <th>Nome</th>
+                        <th>Marca</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% lista.map(function(value, index) { %>
+                    <% listaEquipamentos.map(function(value, index) { %>
                         <tr>
-                            <td><%= value.marcaId %></td>
+                            <td><%= value.equipamentoId %></td>
+                            <td><%= value.equipamentoNome %></td>
                             <td><%= value.marcaNome %></td>
                             <td>
-                                <a href="#" class="btn btn-primary btnAlteracao" data-bs-toggle="modal" data-bs-target="#modalMarcaAlt" data-id="<%= value.marcaId %>" data-nome="<%= value.marcaNome %>"><i class="fas fa-pen"></i></a>
-                                <button class="btn btn-danger btnExclusao" data-bs-toggle="modal" data-bs-target="#modalMarcaDel" data-id="<%= value.marcaId %>" data-nome="<%= value.marcaNome %>"><i class="fas fa-trash"></i></button>
+                                <a href="#" class="btn btn-primary btnAlteracao" data-bs-toggle="modal" data-bs-target="#modalEquipamentoAlt" data-id="<%= value.equipamentoId %>"       data-nome="<%= value.equipamentoNome %>" data-marca-id="<%= value.marcaId %>"><i class="fas fa-pen"></i></a>
+                                <button class="btn btn-danger btnExclusao" data-bs-toggle="modal" data-bs-target="#modalEquipamentoDel" data-id="<%= value.equipamentoId %>"          data-nome="<%= value.equipamentoNome %>"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     <% }) %>
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="modalMarca">
+        <div class="modal fade" id="modalEquipamento">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Cadastro de Marcas</h5>
+                        <h5 class="modal-title">Cadastro de Equipamentos</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>  
                     <div class="modal-body">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="descricaoMarca" placeholder="Marca">
-                            <label for="descricaoMarca">Marca</label>
+                            <input type="text" class="form-control" id="descricaoEquipamento" placeholder="Nome do Equipamento">
+                            <label for="descricaoEquipamento">Nome do Equipamento</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" id="marcaEquipamento">
+                                <option value="" selected disabled>Selecione uma marca</option>
+                                <% listaMarcas.map(function(marca) { %>
+                                    <option value="<%= marca.marcaId %>"><%= marca.marcaNome %></option>
+                                <% }) %>
+                            </select>
+                            <label for="marcaEquipamento">Marca</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -75,19 +85,27 @@
                 </div>
             </div>
         </div>
-        <!--alterar-->
-        <div class="modal fade" id="modalMarcaAlt">
+        <div class="modal fade" id="modalEquipamentoAlt">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Editar Marca</h5>
+                        <h5 class="modal-title">Editar Equipamento</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>  
                     <div class="modal-body">
-                        <input type="hidden" id="idMarcaAlt" value="">
+                        <input type="hidden" id="idEquipamentoAlt" value="">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="descricaoMarcaAlt" placeholder="Marca" value="" >
-                            <label for="descricaoMarcaAlt">Marca</label>
+                            <input type="text" class="form-control" id="descricaoEquipamentoAlt" placeholder="Nome do Equipamento" value="" >
+                            <label for="descricaoEquipamentoAlt">Nome do Equipamento</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" id="marcaEquipamentoAlt">
+                                <option value="" disabled>Selecione uma marca</option>
+                                <% listaMarcas.map(function(marca) { %>
+                                    <option value="<%= marca.marcaId %>"><%= marca.marcaNome %></option>
+                                <% }) %>
+                            </select>
+                            <label for="marcaEquipamentoAlt">Marca</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -97,25 +115,22 @@
                 </div>
             </div>
         </div>
-        <!--excluir-->
-        <div class="modal fade" id="modalMarcaDel">
+        <div class="modal fade" id="modalEquipamentoDel">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Confirmar a exclusão da marca</h5>
+                        <h5 class="modal-title">Confirmar a exclusão do equipamento</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div> 
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <p>Você tem certeza que deseja excluir a marca abaixo?</p>
-                            <p><strong>Código:</strong> <span id="codigoExclusao"></span></p>
-                            <p><strong>Marca:</strong> <span id="nomeExclusao"></span></p>
-                            <input type="hidden" id="idMarcaExcluir" value="">
-                        </div>
+                        <p>Você tem certeza que deseja excluir o equipamento abaixo?</p>
+                        <p><strong>Código:</strong> <span id="codigoExclusao"></span></p>
+                        <p><strong>Equipamento:</strong> <span id="nomeExclusao"></span></p>
+                        <input type="hidden" id="idEquipamentoExcluir" value="">
                     </div> 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
+                        <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">Excluir</button>
                     </div>
                 </div>
             </div>
