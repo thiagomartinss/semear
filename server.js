@@ -1,3 +1,4 @@
+
 const express = require('express'); 
 const expressEjsLayouts = require('express-ejs-layouts'); 
 const server = express(); 
@@ -11,6 +12,8 @@ const routeAdmin = require("./routes/adminRoute");
 const routeMarca = require("./routes/marcaRoute");
 const routeServico = require("./routes/servicoRoute");
 const routeEquipamento = require("./routes/equipamentoRoute");
+
+
 
 server.set("view engine", 'ejs') 
 server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
