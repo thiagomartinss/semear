@@ -62,6 +62,19 @@ class ServicoModel {
         return null;
     }
 
+    async buscarDesc(desc){
+        let sql = "SELECT * FROM SERVICO WHERE DESC_SERVICO = ?";
+        let valores = [desc];
+        let rows = await conexao.ExecutaComando(sql,valores);
+
+        if(rows.length > 0){
+            let row = rows[0];
+            return new ServicoModel(row["ID_SERVICO"], row["DESC_SERVICO"], row["VALOR_SERVICO"]);
+        }
+        return null;
+    }
+
+
     async excluir(id) {
         let sql = "DELETE FROM SERVICO WHERE ID_SERVICO = ?";
         let valores = [id];

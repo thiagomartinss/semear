@@ -11,26 +11,42 @@ class ServicoController{
     async cadastrar(req, resp){
         let msg = "";
         let cor = "";
+        let busca = new ServicoModel();
+        let buscaServico = await busca.buscarDesc(req.body.descricao);
 
-        if(req.body.descricao != "" && req.body.valor != ""){
-            let servico = new ServicoModel(0, req.body.descricao, req.body.valor);
-            let result = await servico.cadastrarServicos();
+        if(!buscaServico){
+            if(req.body.descricao != "" && req.body.valor != ""){
+                if(req.body.valor > 0){
+                    let servico = new ServicoModel(0, req.body.descricao, req.body.valor);
+                    let result = await servico.cadastrarServicos();
 
-            if(result){
-                resp.send({
-                    ok: true,
-                    msg: "Serviço cadastrado com sucesso!"
-                });
+                    if(result){
+                        resp.send({
+                            ok: true,
+                            msg: "Serviço cadastrado com sucesso!"
+                        });
+                    }else{
+                        resp.send({
+                            ok: false,
+                            msg: "Erro ao cadastrar o serviço!"
+                        });
+                    }
+                }else{
+                    resp.send({
+                        ok: false,
+                        msg: "Insira um valor maior que zero!"
+                    });
+                }  
             }else{
                 resp.send({
                     ok: false,
-                    msg: "Erro ao cadastrar o serviço!"
+                    msg: "Preencha o campo!"
                 });
             }
         }else{
             resp.send({
                 ok: false,
-                msg: "Preencha o campo!"
+                msg: `O serviço "${buscaServico.servicoDesc}" já está cadastrado. <br>ID: ${buscaServico.servicoId}<br> Valor R$:${buscaServico.servicoValor}`
             });
         }
     }

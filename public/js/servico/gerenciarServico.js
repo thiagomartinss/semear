@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("btnExcluir").addEventListener("click", excluir);
 
     const botoesAlteracao = document.querySelectorAll(".btnAlteracao");
+    let msgSservico = document.querySelector("#msg-servico");
 
     // Adiciona um evento de clique para cada um deles
     botoesAlteracao.forEach(function(botao){
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function limparValidacao(){
         document.getElementById("descricaoServico").style["border-color"] = "#ced4da";
         document.getElementById("valorServico").style["border-color"] = "#ced4da";
+        msgSservico.textContent = "";
     }
 
     function cadastrar(){
@@ -79,16 +81,16 @@ document.addEventListener("DOMContentLoaded", function(){
                     window.location.href="/servico";
                 }   
                 else {
-                    alert(r.msg);
+                    msgSservico.innerHTML = r.msg;
                 }
             })
         }else{
             if(listaErros.includes("descricaoServico")){
                 document.getElementById("descricaoServico").style["border-color"] = "red";
-                alert("Informe a descrição do serviço");
+                msgSservico.textContent = "Informe a descrição do serviço";
             }else if(listaErros.includes("valorServico")){
                 document.getElementById("valorServico").style["border-color"] = "red";
-                alert("Informe o valor do serviço");
+                msgSservico.textContent = "Informe o valor do serviço!";
             }
         }
     }
