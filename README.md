@@ -1,12 +1,10 @@
 # 🌱 SIGVA - Sistema de Gerenciamento de Vendas de Agronegócio (Projeto Semear)
-
+**Projeto ainda em construção**
 Este repositório contém o projeto **SIGVA (Sistema de Gerenciamento de Vendas de Agronegócio)**, desenvolvido para a empresa fictícia "Semear".
 
 Este é um projeto acadêmico 🎓 do **Projeto Integrado III**, referente ao 3º Termo do curso de **Análise e Desenvolvimento de Sistemas** da FIPP (Faculdade de Informática de Presidente Prudente).
 
 🎯 **Objetivo:** Construir uma solução de software completa para o setor do agronegócio, simulando um sistema ecommerce com backoffice que controla desde o estoque, finanças e prestação de serviços.
-
-📍 **Foco Atual (3º Termo):** O foco principal do desenvolvimento é a construção da **Área de Ordem de Serviços**, que será integrada aos módulos de estoque e financeiro.
 
 ---
 
