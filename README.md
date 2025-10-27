@@ -48,7 +48,7 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
 
 2.  **Navegue até a pasta do projeto**
     ```bash
-    cd semear
+    cd SIGVA
     ```
 
 3.  **Instale as dependências**
