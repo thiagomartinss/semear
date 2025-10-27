@@ -1,15 +1,53 @@
-# Semear
-Projeto integrado 3° ADS - FIPP
+# 🌱 SIGVA - Sistema de Gerenciamento de Vendas de Agronegócio (Projeto Semear)
 
-# Tecnologias usadas
-- NodeJs (Express)
-- HTML, CSS e JavaScript
-- Bootstrap
-- MySql
+Este repositório contém o projeto **SIGVA (Sistema de Gerenciamento de Vendas de Agronegócio)**, desenvolvido para a empresa fictícia "Semear".
 
-# Comandos para instalação inicial
-- npm init
-- npm install express
-- npm install ejs
-- npm install express-ejs-layouts
-- npm install mysql2
+Este é um projeto acadêmico 🎓 do **Projeto Integrado III**, referente ao 3º Termo do curso de **Análise e Desenvolvimento de Sistemas** da FIPP (Faculdade de Informática de Presidente Prudente).
+
+🎯 **Objetivo:** Construir uma solução de software completa para o setor do agronegócio, simulando um sistema ecommerce com backoffice que controla desde o estoque, finanças e prestação de serviços.
+
+📍 **Foco Atual (3º Termo):** O foco principal do desenvolvimento é a construção da **Área de Ordem de Serviços**, que será integrada aos módulos de estoque e financeiro.
+
+---
+
+## ✨ Funcionalidades Planejadas
+
+O sistema completo (SIGVA) foi projetado para gerenciar todas as operações da empresa, incluindo:
+
+* 📝 **Gestão de Cadastros (CRUD):** Clientes, Fornecedores, Produtos, Insumos, Marcas, Serviços e Equipamentos Agrícolas.
+* 🛒 **Processos de Venda:** Efetuar Venda, Devolução de Venda e atualização automática de estoque.
+* 🛍️ **Processos de Compra:** Efetuar Compra e Devolução de Compra.
+* 🔧 **Ordens de Serviço:** Abertura, Fechamento e Recebimento de OS.
+* 💲 **Módulo Financeiro:** Abertura e Fechamento de Caixa, Contas a Receber e Movimentação de Caixa.
+* 📊 **Relatórios:** Geração de relatórios gerenciais de produtos, vendas e ordens de serviço.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+Este projeto está sendo desenvolvido com as seguintes tecnologias e padrões:
+
+* **🖥️ Backend:** Node.js com Express
+* **🎨 Frontend (View Engine):** EJS (Embedded JavaScript) e bootstrap 5
+* **🗃️ Banco de Dados:** MySQL
+* **🏛️ Arquitetura:** MVC (Model-View-Controller)
+* **🧰 Ferramentas:** Git, GitHub e MySQL Workbench
+
+---
+
+## 🚀 Como Executar o Projeto
+
+Siga os passos abaixo para configurar e executar o projeto em seu ambiente local:
+
+1 - Clone o repositório
+2 - Navegue até a pasta do projeto
+3 - Instale as dependencias pelo terminal (verifique se tem o nodeJs instalado)
+- npm install
+4 - Configure o banco de dados MySql
+⚙️ Certifique-se de ter um servidor MySQL em execução.
+📄 Execute o script de criação do banco de dados (presente no projeto, ex: sql create banco pid.txt) para criar todas as tabelas necessárias.
+🔑 Configure as credenciais de acesso ao banco (host, usuário, senha, banco de dados) no arquivo de configuração do projeto (ex: /config/database.js ou um arquivo .env).
+5 - Inicie o servidor
+- npm start
+6 - Acesse aplicação
+  🖥️ Abra seu navegador e acesse http://localhost:5000
