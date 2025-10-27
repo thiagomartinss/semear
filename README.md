@@ -1,6 +1,6 @@
 # 🌱 SIGVA - Sistema de Gerenciamento de Vendas de Agronegócio (Projeto Semear)
 
-**Projeto ainda em construção**
+**---------------Projeto ainda em construção---------------**
 
 Este repositório contém o projeto **SIGVA (Sistema de Gerenciamento de Vendas de Agronegócio)**, desenvolvido para a empresa fictícia "Semear".
 
