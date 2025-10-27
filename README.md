@@ -43,7 +43,7 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
 
 1.  **Clone o repositório**
     ```bash
-    git clone [https://github.com/thiagomartinss/semear.git](https://github.com/thiagomartinss/semear.git)
+    git clone https://github.com/thiagomartinss/SIGVA.git
     ```
 
 2.  **Navegue até a pasta do projeto**
