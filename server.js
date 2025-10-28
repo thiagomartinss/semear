@@ -34,7 +34,9 @@ server.use("/admin", routeAdmin);
 server.use("/marca", routeMarca);
 server.use("/servico", routeServico);
 server.use("/equipamento", routeEquipamento);
-
+/*
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
 })
+*/
+module.exports = server;
