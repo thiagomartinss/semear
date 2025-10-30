@@ -1,22 +1,31 @@
 document.addEventListener("DOMContentLoaded", function(){
+    let msgMarca = document.querySelector("#msg-marca");
+    let msgMarcaAlt = document.querySelector("#msg-marcaAlt");
+    let msgMarcaEx = document.querySelector("#msg-marcaEx");
+    
+    const modal = document.getElementById('modalMarca')
+        modal.addEventListener('show.bs.modal', event => {
+        limparValidacao();
+    });
+    const modalAlt = document.getElementById('modalMarcaAlt')
+        modalAlt.addEventListener('show.bs.modal', event => {
+        limparValidacaoAlt();
+    });
+
     document.getElementById("btnCadastrar").addEventListener("click", cadastrar);
     document.getElementById("btnAlterar").addEventListener("click", alterar);
     document.getElementById("btnExcluir").addEventListener("click", excluir);
 
     const botoesAlteracao = document.querySelectorAll(".btnAlteracao");
-
-    // Adiciona um evento de clique para cada um deles
+    
     botoesAlteracao.forEach(function(botao){
         botao.addEventListener("click", function(){
-            // Pega o ID que está no atributo 'data-id' do botão clicado
             const marcaId = this.getAttribute("data-id");
 
-            // Usa o fetch para buscar os dados da marca no backend
             fetch(`/marca/buscar/${marcaId}`)
             .then(response => response.json())
             .then(data => {
                 if(data.ok && data.marca){
-                    // Preenche os campos do modal com os dados recebidos do servidor
                     document.getElementById("idMarcaAlt").value = data.marca.marcaId;
                     document.getElementById("descricaoMarcaAlt").value = data.marca.marcaNome;
                 } else {
@@ -44,6 +53,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function limparValidacao(){
         document.getElementById("descricaoMarca").style["border-color"] = "#ced4da";
+        msgMarca.textContent = "";
+    }
+    function limparValidacaoAlt(){
+        document.getElementById("descricaoMarcaAlt").style["border-color"] = "#ced4da";
+        msgMarcaAlt.textContent = "";
     }
 
     function cadastrar(){
@@ -51,12 +65,12 @@ document.addEventListener("DOMContentLoaded", function(){
         let descricao = document.querySelector("#descricaoMarca").value;
 
         let listaErros = [];
-        if(descricao == "")
+        if(descricao.trim() == "")
             listaErros.push("descricaoMarca");
         
         if(listaErros.length == 0){
             let desc = {
-                descricao: descricao,
+                descricao: descricao.trim(),
             }
             fetch("/marca/cadastrar", {
                 method: 'POST',
@@ -73,12 +87,12 @@ document.addEventListener("DOMContentLoaded", function(){
                     window.location.href="/marca";
                 }   
                 else {
-                    alert(r.msg);
+                    msgMarca.innerHTML = r.msg;
                 }
             })
         }else{
             document.getElementById("descricaoMarca").style["border-color"] = "red";
-            alert("Informe a descrição da marca");
+            msgMarca.textContent = "Informe uma descrição válida";
         }
     }
 
@@ -89,18 +103,18 @@ document.addEventListener("DOMContentLoaded", function(){
         let descricao = document.querySelector("#descricaoMarcaAlt").value;
 
         let listaErros = [];
-        if(descricao === "") {
+        if(descricao.trim() === "") {
             listaErros.push("descricaoMarcaAlt");
         }
         
         if(listaErros.length === 0){
             let marca = {
                 id: id,
-                descricao: descricao,
+                descricao: descricao.trim(),
             };
 
-            fetch("/marca/alterar", { // Nova rota para alteração
-                method: 'POST', // Pode ser POST ou PUT
+            fetch("/marca/alterar", { 
+                method: 'POST',
                 body: JSON.stringify(marca),
                 headers: {
                     "Content-Type": "application/json",
@@ -111,12 +125,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 if(r.ok) {
                     window.location.href = "/marca";
                 } else {
-                    alert(r.msg);
+                    msgMarcaAlt.innerHTML = r.msg;
                 }
             });
         } else {
             document.getElementById("descricaoMarcaAlt").style["border-color"] = "red";
-            alert("Informe a descrição da marca");
+            msgMarcaAlt.textContent = "Informe uma descrição válida";
         }
     }
 

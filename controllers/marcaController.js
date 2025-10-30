@@ -8,30 +8,42 @@ class MarcaController{
         res.render('marca/marcas', {lista: lista});
     }
 
-    async cadastrar(req, resp){
-        let msg = "";
-        let cor = "";
-
-        if(req.body.descricao != ""){
+    async cadastrar(req, resp) {
+        if (req.body.descricao == "") {
+            resp.send({
+                ok: false,
+                msg: "Preencha o campo de descrição!"
+            });
+            return;
+        }
+        try {
             let marca = new MarcaModel(0, req.body.descricao);
-            let result = await marca.cadastrarMarcas();
+            let result = await marca.cadastrarMarcas(); 
 
-            if(result){
+            if (result) {
                 resp.send({
                     ok: true,
                     msg: "Marca cadastrada com sucesso!"
                 });
-            }else{
+            } else {
                 resp.send({
                     ok: false,
-                    msg: "Erro ao cadastrar a marca!"
+                    msg: "Erro ao cadastrar a marca."
                 });
             }
-        }else{
-            resp.send({
-                ok: false,
-                msg: "Preencha o campo!"
-            });
+        } catch (error) {
+            if (error.code === 'ER_DUP_ENTRY' || error.errno === 1062) {
+                resp.send({
+                    ok: false,
+                    msg: `A marca "${req.body.descricao}" já está cadastrada.`
+                });
+            } else {
+                console.error("Erro inesperado no banco de dados:", error);
+                resp.send({
+                    ok: false,
+                    msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
+                });
+            }
         }
     }
 
@@ -65,14 +77,18 @@ class MarcaController{
     }
 
     async alterar(req, resp) {
-        if(req.body.id != "" && req.body.descricao != ""){
-            
-            let marca = new MarcaModel(req.body.id, req.body.descricao);
-            
-            
-            let result = await marca.cadastrarMarcas();
+        if (req.body.id == "" || req.body.descricao.trim() == "") {
+            resp.send({
+                ok: false,
+                msg: "Preencha a descrição!"
+            });
+            return;
+        }
+        try {
+            let marca = new MarcaModel(req.body.id, req.body.descricao.trim());
+            let result = await marca.cadastrarMarcas(); 
 
-            if(result){
+            if (result) {
                 resp.send({
                     ok: true,
                     msg: "Marca alterada com sucesso!"
@@ -80,21 +96,28 @@ class MarcaController{
             } else {
                 resp.send({
                     ok: false,
-                    msg: "Erro ao alterar a marca!"
+                    msg: "Erro ao alterar a marca."
                 });
             }
-        } else {
-            resp.send({
-                ok: false,
-                msg: "Dados inválidos para alteração!"
-            });
+        } catch (error) {
+            if (error.code === 'ER_DUP_ENTRY' || error.errno === 1062) {
+                resp.send({
+                    ok: false,
+                    msg: `A marca "${req.body.descricao}" já está cadastrada.`
+                });
+            } else {
+                console.error("Erro inesperado no banco de dados:", error);
+                resp.send({
+                    ok: false,
+                    msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
+                });
+            }
         }
     }
 
     async excluir(req, resp) {
         if(req.body.id != null){
             let marca = new MarcaModel();
-            // Chama o novo método no modelo
             let result = await marca.excluir(req.body.id);
 
             if(result){
