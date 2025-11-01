@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let msgMarca = document.querySelector("#msg-marca");
     let msgMarcaAlt = document.querySelector("#msg-marcaAlt");
-    let msgMarcaEx = document.querySelector("#msg-marcaEx");
+    //let msgMarcaEx = document.querySelector("#msg-marcaEx");
     
     const modal = document.getElementById('modalMarca')
         modal.addEventListener('show.bs.modal', event => {

@@ -37,7 +37,9 @@
                     <tr>
                         <th>Código</th>
                         <th>Nome</th>
+                        <th>Modelo</th>
                         <th>Marca</th>
+                        <th>Estoque</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -46,10 +48,12 @@
                         <tr>
                             <td><%= value.equipamentoId %></td>
                             <td><%= value.equipamentoNome %></td>
+                            <td><%= value.equipamentoModelo %></td>
                             <td><%= value.marcaNome %></td>
+                            <td><%= value.equipamentoEstoque %></td>
                             <td>
                                 <a href="#" class="btn btn-primary btnAlteracao" data-bs-toggle="modal" data-bs-target="#modalEquipamentoAlt" data-id="<%= value.equipamentoId %>"       data-nome="<%= value.equipamentoNome %>" data-marca-id="<%= value.marcaId %>"><i class="fas fa-pen"></i></a>
-                                <button class="btn btn-danger btnExclusao" data-bs-toggle="modal" data-bs-target="#modalEquipamentoDel" data-id="<%= value.equipamentoId %>"          data-nome="<%= value.equipamentoNome %>"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-danger btnExclusao" data-bs-toggle="modal" data-bs-target="#modalEquipamentoDel" data-id="<%= value.equipamentoId %>" data-nome="<%= value.equipamentoNome %>" data-modelo="<%= value.equipamentoModelo %>" data-marca="<%= value.marcaNome %>" data-estoque="<%= value.equipamentoEstoque %>"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     <% }) %>
@@ -68,6 +72,14 @@
                             <input type="text" class="form-control" id="descricaoEquipamento" placeholder="Nome do Equipamento">
                             <label for="descricaoEquipamento">Nome do Equipamento</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="modeloEquipamento" placeholder="Modelo do Equipamento">
+                            <label for="modeloEquipamento">Modelo do Equipamento</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="qtdEquipamento" placeholder="Quantidade em estoque">
+                            <label for="qtdEquipamento">Quantidade em estoque</label>
+                        </div>
                         <div class="form-floating">
                             <select class="form-select" id="marcaEquipamento">
                                 <option value="" selected disabled>Selecione uma marca</option>
@@ -77,6 +89,7 @@
                             </select>
                             <label for="marcaEquipamento">Marca</label>
                         </div>
+                        <span class="text-danger" id="msg-equipamento"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -98,6 +111,14 @@
                             <input type="text" class="form-control" id="descricaoEquipamentoAlt" placeholder="Nome do Equipamento" value="" >
                             <label for="descricaoEquipamentoAlt">Nome do Equipamento</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="modeloEquipamentoAlt" placeholder="Modelo do Equipamento">
+                            <label for="modeloEquipamentoAlt">Modelo do Equipamento</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="qtdEquipamentoAlt" placeholder="Quantidade em estoque">
+                            <label for="qtdEquipamentoAlt">Quantidade em estoque</label>
+                        </div>
                         <div class="form-floating">
                             <select class="form-select" id="marcaEquipamentoAlt">
                                 <option value="" disabled>Selecione uma marca</option>
@@ -107,6 +128,7 @@
                             </select>
                             <label for="marcaEquipamentoAlt">Marca</label>
                         </div>
+                        <span class="text-danger" id="msg-equipamentoAlt"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -126,7 +148,11 @@
                         <p>Você tem certeza que deseja excluir o equipamento abaixo?</p>
                         <p><strong>Código:</strong> <span id="codigoExclusao"></span></p>
                         <p><strong>Equipamento:</strong> <span id="nomeExclusao"></span></p>
+                        <p><strong>Modelo:</strong> <span id="modeloExclusao"></span></p>
+                        <p><strong>Marca:</strong> <span id="marcaExclusao"></span></p> 
+                        <p><strong>Estoque:</strong> <span id="qtdExclusao"></span></p>
                         <input type="hidden" id="idEquipamentoExcluir" value="">
+                        <span class="text-danger" id="msg-equipamentoExc"></span>
                     </div> 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
