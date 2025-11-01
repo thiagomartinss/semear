@@ -14,8 +14,29 @@ class EquipamentoController{
     }
 
     async cadastrar(req, resp){
-        if(req.body.descricao != "" && req.body.marcaId != "") {
-            let equipamento = new EquipamentoModel(0, req.body.descricao, req.body.marcaId);
+
+        const { descricao, modelo, estoque, marcaId } = req.body;
+
+        if (!descricao || descricao.trim() === "" || !modelo || modelo.trim() === "" || !estoque || estoque.trim() === "" || !marcaId || marcaId === "") {
+            resp.send({
+                ok: false,
+                msg: "Preencha todos os campos em vermelho!"
+            });
+            return;
+        }
+        try {
+            let equipamento = new EquipamentoModel();
+            const equipamentoExistente = await equipamento.buscarExistente(descricao.trim(), modelo.trim(), marcaId);
+
+            if (equipamentoExistente) {
+                resp.send({
+                    ok: false,
+                    msg: `Já existe outro equipamento com este nome, modelo e marca cadastrado.`
+                });
+                return;
+            }
+
+            equipamento = new EquipamentoModel(0, descricao.trim(), modelo.trim(), estoque.trim(), marcaId);
             let result = await equipamento.cadastrarEquipamento();
 
             if(result){
@@ -29,10 +50,12 @@ class EquipamentoController{
                     msg: "Erro ao cadastrar o equipamento!"
                 });
             }
-        }else{
+
+        } catch(error){
+            console.error("Erro inesperado no banco de dados:", error);
             resp.send({
                 ok: false,
-                msg: "Preencha todos os campos!"
+                msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
             });
         }
     }
@@ -48,6 +71,8 @@ class EquipamentoController{
                     equipamento: {
                         equipamentoId: equipamento.equipamentoId,
                         equipamentoNome: equipamento.equipamentoNome,
+                        equipamentoModelo: equipamento.equipamentoModelo,
+                        equipamentoEstoque: equipamento.equipamentoEstoque,
                         marcaId: equipamento.marcaId
                     }
                 })
@@ -68,9 +93,30 @@ class EquipamentoController{
     }
 
     async alterar(req, resp) {
-        if(req.body.id != "" && req.body.descricao != "" && req.body.marcaId != ""){
+    
+        const { id, descricao, modelo, estoque, marcaId } = req.body;
+
+        if (!id || !descricao || descricao.trim() === "" || !modelo || modelo.trim() === "" || !estoque || estoque.trim() === "" || !marcaId || marcaId === "") {
+            resp.send({
+                ok: false,
+                msg: "Preencha todos os campos!"
+            });
+            return;
+        }
+
+        try {
+            let equipamento = new EquipamentoModel();
+            const equipamentoExistente = await equipamento.buscarExistente(descricao.trim(), modelo.trim(), marcaId);
+
+            if (equipamentoExistente && equipamentoExistente.equipamentoId != id) {
+                resp.send({
+                    ok: false,
+                    msg: `Já existe outro equipamento com este nome, modelo e marca cadastrado.`
+                });
+                return;
+            }
             
-            let equipamento = new EquipamentoModel(req.body.id, req.body.descricao, req.body.marcaId);
+            equipamento = new EquipamentoModel(id, descricao.trim(), modelo.trim(), estoque.trim(), marcaId);
             let result = await equipamento.cadastrarEquipamento();
 
             if(result){
@@ -78,16 +124,18 @@ class EquipamentoController{
                     ok: true,
                     msg: "Equipamento alterado com sucesso!"
                 });
-            } else {
+            }else{
                 resp.send({
                     ok: false,
                     msg: "Erro ao alterar o equipamento!"
                 });
             }
-        } else {
+
+        } catch(error){
+            console.error("Erro inesperado no banco de dados:", error);
             resp.send({
                 ok: false,
-                msg: "Dados inválidos para alteração!"
+                msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
             });
         }
     }
