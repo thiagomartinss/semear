@@ -16,6 +16,7 @@ const routeEquipamento = require("./routes/equipamentoRoute");
 
 
 server.set("view engine", 'ejs') 
+server.set('views', path.join(process.cwd(), './views'));
 server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
 
 //Configuração arquivo de Layout
