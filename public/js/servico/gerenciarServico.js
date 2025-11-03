@@ -1,23 +1,31 @@
 document.addEventListener("DOMContentLoaded", function(){
+    let msgServico =  document.querySelector("#msg-servico");
+    let msgServicoAlt =  document.querySelector("#msg-servicoAlt");
+    //let msgServicoExc =  document.querySelector("#msg-servicoExc");
+
+    const modal = document.getElementById('modalServico')
+        modal.addEventListener('show.bs.modal', event => {
+        limparValidacao();
+    });
+    const modalAlt = document.getElementById('modalServicoAlt')
+        modalAlt.addEventListener('show.bs.modal', event => {
+        limparValidacaoAlt();
+    });
+    
+    
     document.getElementById("btnCadastrar").addEventListener("click", cadastrar);
     document.getElementById("btnAlterar").addEventListener("click", alterar);
     document.getElementById("btnExcluir").addEventListener("click", excluir);
 
     const botoesAlteracao = document.querySelectorAll(".btnAlteracao");
-    let msgSservico = document.querySelector("#msg-servico");
 
-    // Adiciona um evento de clique para cada um deles
     botoesAlteracao.forEach(function(botao){
         botao.addEventListener("click", function(){
-            // Pega o ID que está no atributo 'data-id' do botão clicado
             const servicoId = this.getAttribute("data-id");
-
-            // Usa o fetch para buscar os dados da marca no backend
             fetch(`/servico/buscar/${servicoId}`)
             .then(response => response.json())
             .then(data => {
                 if(data.ok && data.servico){
-                    // Preenche os campos do modal com os dados recebidos do servidor
                     document.getElementById("idServicoAlt").value = data.servico.servicoId;
                     document.getElementById("descricaoServicoAlt").value = data.servico.servicoDesc;
                     document.getElementById("valorServicoAlt").value = data.servico.servicoValor;
@@ -47,7 +55,12 @@ document.addEventListener("DOMContentLoaded", function(){
     function limparValidacao(){
         document.getElementById("descricaoServico").style["border-color"] = "#ced4da";
         document.getElementById("valorServico").style["border-color"] = "#ced4da";
-        msgSservico.textContent = "";
+        msgServico.textContent = "";
+    }
+    function limparValidacaoAlt(){
+        document.getElementById("descricaoServicoAlt").style["border-color"] = "#ced4da";
+        document.getElementById("valorServicoAlt").style["border-color"] = "#ced4da";
+        msgServicoAlt.textContent = "";
     }
 
     function cadastrar(){
@@ -56,15 +69,17 @@ document.addEventListener("DOMContentLoaded", function(){
         let servicoValor = document.querySelector("#valorServico").value;
 
         let listaErros = [];
-        if(servico == "")
+        if(servico.trim() == "")
             listaErros.push("descricaoServico");
-        if(servicoValor == "")
+        if(servicoValor.trim() == "")
             listaErros.push("valorServico");
+        else if(servicoValor.trim() <= 0)
+            listaErros.push("ValorNegativo");
         
         if(listaErros.length == 0){
             let desc = {
-                descricao: servico,
-                valor: servicoValor
+                descricao: servico.trim(),
+                valor: servicoValor.trim()
             }
             fetch("/servico/cadastrar", {
                 method: 'POST',
@@ -81,40 +96,42 @@ document.addEventListener("DOMContentLoaded", function(){
                     window.location.href="/servico";
                 }   
                 else {
-                    msgSservico.innerHTML = r.msg;
+                    msgServico.innerHTML = r.msg;
                 }
             })
         }else{
-            if(listaErros.includes("descricaoServico")){
+            if(listaErros.includes("descricaoServico"))
                 document.getElementById("descricaoServico").style["border-color"] = "red";
-                msgSservico.textContent = "Informe a descrição do serviço";
-            }else if(listaErros.includes("valorServico")){
+            if(listaErros.includes("valorServico"))
                 document.getElementById("valorServico").style["border-color"] = "red";
-                msgSservico.textContent = "Informe o valor do serviço!";
+            msgServico.textContent = "Preencha os campos em vermelho";
+            if(listaErros.includes("ValorNegativo")){
+                document.getElementById("valorServico").style["border-color"] = "red";
+                msgServico.textContent = "O valor do serviço de ser maior que zero";
             }
         }
     }
 
     function alterar() {
-        limparValidacao();
+        limparValidacaoAlt();
         
         let id = document.querySelector("#idServicoAlt").value;
         let descricao = document.querySelector("#descricaoServicoAlt").value;
         let valor = document.querySelector("#valorServicoAlt").value;
 
         let listaErros = [];
-        if(descricao === "") {
+        if(descricao.trim() === "") 
             listaErros.push("descricaoServicoAlt");
-        }
-        if(valor === ""){
-            listaErros.push("alorServicoAlt");
-        }
+        if(valor.trim() === "")
+            listaErros.push("valorServicoAlt");
+        else if(valor.trim() <= 0)
+            listaErros.push("ValorNegativo");
         
         if(listaErros.length === 0){
             let servico = {
                 id: id,
-                descricao: descricao,
-                valor: valor
+                descricao: descricao.trim(),
+                valor: valor.trim()
             };
 
             fetch("/servico/alterar", { 
@@ -129,16 +146,19 @@ document.addEventListener("DOMContentLoaded", function(){
                 if(r.ok) {
                     window.location.href = "/servico";
                 } else {
-                    alert(r.msg);
+                    msgServicoAlt.innerHTML = r.msg;
                 }
             });
         } else {
-             if(listaErros.includes("descricaoServico")){
-                document.getElementById("descricaoServico").style["border-color"] = "red";
-                alert("Informe a descrição do serviço");
-            }else if(listaErros.includes("valorServico")){
-                document.getElementById("valorServico").style["border-color"] = "red";
-                alert("Informe o valor do serviço");
+            if(listaErros.includes("descricaoServicoAlt")) 
+                document.getElementById("descricaoServicoAlt").style["border-color"] = "red";
+            if(listaErros.includes("valorServicoAlt"))
+                document.getElementById("valorServicoAlt").style["border-color"] = "red";
+            msgServicoAlt.textContent = "Preencha os campos em vermelho"; 
+
+            if(listaErros.includes("ValorNegativo")){
+                document.getElementById("valorServicoAlt").style["border-color"] = "red";
+                msgServicoAlt.textContent = "O valor do serviço de ser maior que zero";
             }
         }
     }
@@ -155,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function(){
             .then(r => r.json())
             .then(r => {
                 if(r.ok) {
-                    // Recarrega a página para mostrar a lista atualizada
                     window.location.reload();
                 } else {
                     alert(r.msg);
@@ -165,4 +184,4 @@ document.addEventListener("DOMContentLoaded", function(){
             alert("ID do serviço não encontrado para exclusão.");
         }
     }
-})
+});

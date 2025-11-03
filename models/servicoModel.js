@@ -62,7 +62,7 @@ class ServicoModel {
         return null;
     }
 
-    async buscarDesc(desc){
+    async buscarExistente(desc){
         let sql = "SELECT * FROM SERVICO WHERE DESC_SERVICO = ?";
         let valores = [desc];
         let rows = await conexao.ExecutaComando(sql,valores);

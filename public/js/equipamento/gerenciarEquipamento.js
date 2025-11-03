@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function(){
     botoesAlteracao.forEach(function(botao){
         botao.addEventListener("click", function(){
             const equipamentoId = this.getAttribute("data-id");
-
             fetch(`/equipamento/buscar/${equipamentoId}`)
             .then(response => response.json())
             .then(data => {
