@@ -9,44 +9,51 @@ class ServicoController{
     }
 
     async cadastrar(req, resp){
-        let msg = "";
-        let cor = "";
-        let busca = new ServicoModel();
-        let buscaServico = await busca.buscarDesc(req.body.descricao);
-
-        if(!buscaServico){
-            if(req.body.descricao != "" && req.body.valor != ""){
-                if(req.body.valor > 0){
-                    let servico = new ServicoModel(0, req.body.descricao, req.body.valor);
-                    let result = await servico.cadastrarServicos();
-
-                    if(result){
-                        resp.send({
-                            ok: true,
-                            msg: "Serviço cadastrado com sucesso!"
-                        });
-                    }else{
-                        resp.send({
-                            ok: false,
-                            msg: "Erro ao cadastrar o serviço!"
-                        });
-                    }
-                }else{
-                    resp.send({
-                        ok: false,
-                        msg: "Insira um valor maior que zero!"
-                    });
-                }  
-            }else{
-                resp.send({
-                    ok: false,
-                    msg: "Preencha o campo!"
-                });
-            }
-        }else{
+        if(req.body.descricao.trim() == "" || req.body.valor.trim() == ""){
             resp.send({
                 ok: false,
-                msg: `O serviço "${buscaServico.servicoDesc}" já está cadastrado. <br>ID: ${buscaServico.servicoId}<br> Valor R$:${buscaServico.servicoValor}`
+                msg: "Preencha os campos em vermelho"
+            });
+            return;
+        }
+        if(parseFloat(req.body.valor.trim()) <= 0 && req.body.valor.trim() != ""){
+            resp.send({
+                ok: false,
+                msg: "Valor deve ser maior que zero"
+            });
+            return;
+        }
+        try{
+            let servicoModel = new ServicoModel();
+            const servicoExistente = await servicoModel.buscarExistente(req.body.descricao.trim());
+
+            if(servicoExistente) {
+                resp.send({
+                    ok: false,
+                    msg: `O serviço "${servicoExistente.servicoDesc}" já está cadastrado.`
+                });
+                return;
+            }
+
+            let servico = new ServicoModel(0, req.body.descricao, req.body.valor);
+            let result = await servico.cadastrarServicos();
+
+            if(result){
+                resp.send({
+                    ok: true,
+                    msg: "Serviço cadastrado com sucesso!"
+                });
+            }else{
+                res.send({
+                    ok: false,
+                    msg: "Erro ao cadastrar serviço"
+                });
+            }
+        } catch(error){
+            console.error("Erro inesperado no banco de dados:", error);
+            resp.send({
+                ok: false,
+                msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
             });
         }
     }
@@ -82,11 +89,36 @@ class ServicoController{
     }
 
     async alterar(req, resp) {
-        if(req.body.id != "" && req.body.descricao != "" && req.body.valor != ""){
-            
-            let servico = new ServicoModel(req.body.id, req.body.descricao, req.body.valor);
-            
-            
+        const { id, descricao, valor } = req.body;
+
+        if (!id || !descricao || descricao.trim() === "" || !valor || valor.trim() === "") {
+            resp.send({
+                ok: false,
+                msg: "Preencha todos os campos para alterar!"
+            });
+            return;
+        }
+
+        if(parseFloat(valor.trim()) <= 0){
+            resp.send({
+                ok: false,
+                msg: "Valor deve ser maior que zero"
+            });
+            return;
+        }
+        try{
+            let servicoModel = new ServicoModel();
+            const servicoExistente = await servicoModel.buscarExistente(descricao.trim());
+
+            if(servicoExistente && servicoExistente.servicoId != id) {
+                resp.send({
+                    ok: false,
+                    msg: `O serviço "${servicoExistente.servicoDesc}" já está cadastrado.`
+                });
+                return;
+            }
+
+            let servico = new ServicoModel(id, descricao.trim(), valor.trim());
             let result = await servico.cadastrarServicos();
 
             if(result){
@@ -94,16 +126,17 @@ class ServicoController{
                     ok: true,
                     msg: "Serviço alterado com sucesso!"
                 });
-            } else {
+            }else{
                 resp.send({
                     ok: false,
                     msg: "Erro ao alterar o serviço!"
                 });
             }
-        } else {
+        } catch(error){
+            console.error("Erro inesperado no banco de dados:", error);
             resp.send({
                 ok: false,
-                msg: "Dados inválidos para alteração!"
+                msg: "Ocorreu um erro inesperado ao salvar. Tente novamente."
             });
         }
     }
