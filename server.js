@@ -18,7 +18,7 @@ const path = require("path");
 
 server.set("view engine", 'ejs') 
 server.set('views', path.join(process.cwd(), './views'));
-server.use(express.static('public')); //Expor a pasta de estilização/script para o navegador
+server.use(express.static(path.join(process.cwd(),'./public'))); //Expor a pasta de estilização/script para o navegador
 
 //Configuração arquivo de Layout
 server.set('layout', './layout.ejs');
