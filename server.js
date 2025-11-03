@@ -12,6 +12,7 @@ const routeAdmin = require("./routes/adminRoute");
 const routeMarca = require("./routes/marcaRoute");
 const routeServico = require("./routes/servicoRoute");
 const routeEquipamento = require("./routes/equipamentoRoute");
+const path = require("path");
 
 
 
