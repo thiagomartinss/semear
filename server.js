@@ -11,10 +11,15 @@ const routeRegister = require("./routes/registerRoute");
 const routeAdmin = require("./routes/adminRoute");
 const routeMarca = require("./routes/marcaRoute");
 const routeServico = require("./routes/servicoRoute");
+const routeProduto = require("./routes/produtoRoute");
 const routeEquipamento = require("./routes/equipamentoRoute");
 const path = require("path");
 
-
+/*
+Os trechos abaixo informa qual é o caminho das views e da public para que seja realizado o deploy
+const path = require("path");
+path.join(process.cwd()
+*/
 
 server.set("view engine", 'ejs') 
 server.set('views', path.join(process.cwd(), './views'));
@@ -36,6 +41,7 @@ server.use("/admin", routeAdmin);
 server.use("/marca", routeMarca);
 server.use("/servico", routeServico);
 server.use("/equipamento", routeEquipamento);
+server.use("/produto", routeProduto);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
