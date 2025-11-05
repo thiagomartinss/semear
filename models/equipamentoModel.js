@@ -69,7 +69,7 @@ class EquipamentoModel {
         return null;
     }
 
-    async buscarExistente(nome, modelo, marcaId) {
+    async buscarExistente(nome, modelo, marcaId) {//estudar remoção dessa function
         let sql = "SELECT * FROM EQUIPAMENTO WHERE DESC_EQUIPAMENTO = ? AND MODEL_EQUIPAMENTO = ? AND ID_MARCA = ?";
         let valores = [nome, modelo, marcaId];
         let rows = await conexao.ExecutaComando(sql, valores);
