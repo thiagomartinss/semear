@@ -1,0 +1,189 @@
+
+<div class="d-flex">
+    <aside class="sidebar d-flex flex-column">
+        <ul class="nav flex-column flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link" href="../admin"><i class="fa-solid fa-house fa-fw"></i> Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="../ordemServico"><i class="fa-solid fa-clipboard-list fa-fw"></i>Ordem
+                    de Serviço</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/produto"><i class="fa-solid fa-boxes-stacked fa-fw"></i>Produtos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../servico"><i class="fa-solid fa-list fa-fw"></i> Serviços</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../equipamento"><i class="fa-solid fa-wrench fa-fw"></i> Equipamentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../marca"><i class="fa-solid fa-tags fa-fw"></i> Marcas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa-solid fa-user fa-fw"></i> Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa-solid fa-users fa-fw"></i> Perfis</a>
+            </li>
+        </ul>
+    </aside>
+    <div class="container-fluid flex-grow-1 p-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="text-uppercase text-green100">Ordem de Serviço</h1>
+            <a href="#" class="btn btn-success text-uppercase bg-green200" data-bs-toggle="modal"
+                data-bs-target="#modalOrdemServico"><i class="fa-solid fa-plus"></i> Novo</a>
+        </div>
+        <hr>
+        <div class="table-responsive" style="margin-top: 15px;">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Código da Ordem</th>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Data de Abertura</th>
+                        <th>Equipamentos</th>
+                        <th>Produtos</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--aqui sera os dados-->
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="modalOrdemServico">
+            <div class="modal-dialog modal-dialog-centered modal-lg"><!--aqui vai o do modal-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cadastro de Ordens de Servicos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" id="pesquisaPessoa" class="form-control mb-2"
+                                placeholder="Pesquisar cliente...">
+
+                            <select class="form-select" id="Pessoa" name="pessoaId" required>
+                                <option value="" selected disabled>Selecione o Cliente</option>
+                            </select>
+                            <label for="Pessoa">Cliente</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="Endereco">
+                                <option value="" selected disabled>Selecione o Endereço</option>
+                                <!-- lista dos endereços quando escolher o cliente-->
+                            </select>
+                            <label for="Endereco">Endereço</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="Servico">
+                                <option value="" selected disabled>Selecione o Serviço</option>
+                            </select>
+                            <label for="Servico">Serviço</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="descricaoOS"
+                                placeholder="Descriçao da Ordem de serviço">
+                            <label for="descricaoOS">Descriçao da Ordem de serviço</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input border border-2 border-primary" type="checkbox"
+                                id="checkEquipamento">
+                            <label class="form-check-label" for="checkEquipamento"> Foram ultilizados equipamento?
+                            </label>
+                        </div>
+                        <div id="divEquipamento" class="form-floating mb-3" style="display: none;">
+                            <select class="form-select" id="equipamento">
+                                <option value="" selected disabled>Selecione um Equipamento</option>
+                                    <% listaEquipamentos.map(function(equipamento) { %>
+                                    <option value="<%= equipamento.equipamentoId %>">
+                                        <%= equipamento.equipamentoNome %>
+                                    </option>
+                                    <% }) %>
+                                        <!--fazer checkbox com os produtos usados no lugar do select-->
+                            </select>
+                            <label for="equipamento">Equipamentos</label>
+                            <div class="form-floating mb-3 mt-1">
+                                <input type="number" class="form-control" id="QuantProduto" placeholder="">
+                                <label for="QuantProduto">Quantidade</label>
+                            </div>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input border border-2 border-primary" type="checkbox"
+                                id="checkProdutos">
+                            <label class="form-check-label" for="checkProdutos">
+                                Foram ultilizados Produtos?
+                            </label>
+                        </div>
+                        <div id="divProdutos" class="form-floating mb-3" style="display: none;">
+                            <select class="form-select" id="Produtos">
+                                <option value="" selected disabled>Selecione um Produto</option>
+                            </select>
+                            <!--fazer checkbox com os produtos usados no lugar do select-->
+                            <label for="Produto">Produtos</label>
+
+                            <div class="form-floating mb-3 mt-1">
+                                <input type="number" class="form-control" id="QuantProduto" placeholder="">
+                                <label for="QuantProduto">Quantidade</label>
+                            </div>
+
+                        </div>
+
+                        <!--FAZER O FINAL O VALOR TOTAL DA ORDEM-->
+
+
+                        <span class="text-danger" id="msg-OrdemServico"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success bg-green200" id="btnCadastrar">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('checkEquipamento').addEventListener('change', function () {
+        const div = document.getElementById('divEquipamento');
+        if (this.checked) {
+            div.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+        }
+
+
+    });
+    document.getElementById('checkProdutos').addEventListener('change', function () {
+        const divProdutos = document.getElementById('divProdutos');
+        if (this.checked) {
+            divProdutos.style.display = 'block';
+        } else {
+            divProdutos.style.display = 'none';
+        }
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("pesquisaPessoa");
+        const select = document.getElementById("Pessoa");
+
+        input.addEventListener("keyup", function () {
+            const filtro = this.value;
+            const pessoa = select.querySelectorall("option");
+
+            pessoa.forEach(opt => {
+                if (opt.value === "") return;
+
+                const texto = opt.textContent;
+                opt.style.display = texto.includes(filtro) ? "" : "none";
+            });
+        });
+    });
+
+
+
+</script>

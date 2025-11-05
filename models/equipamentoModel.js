@@ -42,6 +42,28 @@ class EquipamentoModel {
         }
         return listaRetorno;
     }
+    async listarEquipamentosParaOrdem() {
+        let sql = `
+            SELECT ID_EQUIPAMENTO, DESC_EQUIPAMENTO
+            FROM EQUIPAMENTO
+            ORDER BY DESC_EQUIPAMENTO ASC
+        `;
+        
+        var rows = await conexao.ExecutaComando(sql);
+        let listaRetorno = [];
+
+        if (rows.length > 0) {
+            for (let i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                listaRetorno.push(new EquipamentoModel(
+                    row['ID_EQUIPAMENTO'],
+                    row['DESC_EQUIPAMENTO']
+                ));
+            }
+        }
+
+        return listaRetorno;
+    }
 
     async cadastrarEquipamento(){
         if(this.#equipamentoId == 0){

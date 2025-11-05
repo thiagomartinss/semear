@@ -13,6 +13,7 @@ const routeMarca = require("./routes/marcaRoute");
 const routeServico = require("./routes/servicoRoute");
 const routeProduto = require("./routes/produtoRoute");
 const routeEquipamento = require("./routes/equipamentoRoute");
+const routeOrdemServico=require("./routes/ordemServicoRoute");
 const path = require("path");
 
 /*
@@ -42,6 +43,7 @@ server.use("/marca", routeMarca);
 server.use("/servico", routeServico);
 server.use("/equipamento", routeEquipamento);
 server.use("/produto", routeProduto);
+server.use("/ordemServico",routeOrdemServico);
 
 server.listen(5000, function() { 
     console.log("Aplicação iniciada!");
