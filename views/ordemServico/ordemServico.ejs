@@ -1,4 +1,3 @@
-
 <div class="d-flex">
     <aside class="sidebar d-flex flex-column">
         <ul class="nav flex-column flex-grow-1">
@@ -33,7 +32,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="text-uppercase text-green100">Ordem de Serviço</h1>
             <a href="#" class="btn btn-success text-uppercase bg-green200" data-bs-toggle="modal"
-                data-bs-target="#modalOrdemServico"><i class="fa-solid fa-plus"></i> Novo</a>
+                data-bs-target="#modalOrdemServico"><i class="fa-solid fa-plus"></i> Registrar Ordem de Serviço</a>
         </div>
         <hr>
         <div class="table-responsive" style="margin-top: 15px;">
@@ -99,7 +98,7 @@
                         <div id="divEquipamento" class="form-floating mb-3" style="display: none;">
                             <select class="form-select" id="equipamento">
                                 <option value="" selected disabled>Selecione um Equipamento</option>
-                                    <% listaEquipamentos.map(function(equipamento) { %>
+                                <% listaEquipamentos.map(function(equipamento) { %>
                                     <option value="<%= equipamento.equipamentoId %>">
                                         <%= equipamento.equipamentoNome %>
                                     </option>
