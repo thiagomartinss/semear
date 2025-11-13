@@ -1,3 +1,5 @@
+<script src="/js/ordemServico/gerenciarOrdemservico.js"></script>
+<link rel="stylesheet" href="/css/ordemServico/ordemServico.css">
 <div class="d-flex">
     <aside class="sidebar d-flex flex-column">
         <ul class="nav flex-column flex-grow-1">
@@ -43,8 +45,7 @@
                         <th>Cliente</th>
                         <th>Serviço</th>
                         <th>Data de Abertura</th>
-                        <th>Equipamentos</th>
-                        <th>Produtos</th>
+                        <th>Data de Fechamento</th>
                         <th>Valor</th>
                         <th>Ações</th>
                     </tr>
@@ -62,15 +63,21 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-3">
-                            <input type="text" id="pesquisaPessoa" class="form-control mb-2"
-                                placeholder="Pesquisar cliente...">
-
-                            <select class="form-select" id="Pessoa" name="pessoaId" required>
-                                <option value="" selected disabled>Selecione o Cliente</option>
-                            </select>
-                            <label for="Pessoa">Cliente</label>
+                        <div class="form-floating mb-3 dropdown-search">
+                            <button class="btn btn-outline-primary w-100 dropdown-toggle" type="button" id="PessoaBtn">Selecionar o Cliente</button>
+                            <div class="dropsown-menu p-2" id="PessoaMenu">
+                                <input type="text" class=" form-control search-input mb-2" placeholder="Pesquisar cliente ..." id="pesquisaPessoa">
+                                <div id="dropPessoaItem">
+                                    <%//listaPessoas.foreach/map(function(pessoa){)%>
+                                        <div class="dropdown-item" data-id="<%//pessoa.pessoaId%>">
+                                            <%//=pessoa.pessoaId%>
+                                        </div>
+                                        <%//})%>
+                                </div>
+                            </div>
+                            <input type="hidden" name="pessoaId" id="pessoaId" required>
                         </div>
+
                         <div class="form-floating mb-3">
                             <select class="form-select" id="Endereco">
                                 <option value="" selected disabled>Selecione o Endereço</option>
@@ -95,20 +102,39 @@
                             <label class="form-check-label" for="checkEquipamento"> Foram ultilizados equipamento?
                             </label>
                         </div>
+
                         <div id="divEquipamento" class="form-floating mb-3" style="display: none;">
-                            <select class="form-select" id="equipamento">
-                                <option value="" selected disabled>Selecione um Equipamento</option>
-                                <% listaEquipamentos.map(function(equipamento) { %>
-                                    <option value="<%= equipamento.equipamentoId %>">
-                                        <%= equipamento.equipamentoNome %>
-                                    </option>
-                                    <% }) %>
-                                        <!--fazer checkbox com os produtos usados no lugar do select-->
-                            </select>
-                            <label for="equipamento">Equipamentos</label>
-                            <div class="form-floating mb-3 mt-1">
-                                <input type="number" class="form-control" id="QuantProduto" placeholder="">
-                                <label for="QuantProduto">Quantidade</label>
+
+                            <label class="form-label mt-3 ">Equipamentos ultilizados:</label> <br>
+                            <div class="container border rounded p-3">
+                                <div class="row">
+                                    <% listaEquipamentos.map(function(equipamento) { %>
+                                        <div class="col-md-4">
+                                            <div class="form-check mt-3">
+                                                <!--pego essa classe boxbox para usar na quant-->
+                                                <input
+                                                    class="form-check-input border border-2 border-primary equipamento-checkbox"
+                                                    type="checkbox" id="equipamentoqntd"
+                                                    data-id="<%=equipamento.equipamentoId%>"
+                                                    value="<%=equipamento.equipamentoId%>">
+                                                <!--usarei para mandar a quantidade -->
+
+                                                <label class="form-check-label fw-bold">
+                                                    <%=equipamento.equipamentoNome%>
+                                                </label>
+                                                <!--uso a classe quantidade-box so aparece se marcar o campo do equip-->
+                                                <div class="form-floating mb-3 mt-1 quantidade-wrap"
+                                                    id="quant-wrapp<%= equipamento.equipamentoId %>"
+                                                    style="display: none;">
+                                                    <input type="number" class="form-control"
+                                                        id="quant_<%= equipamento.equipamentoId %>">
+                                                    <label
+                                                        for="quant_<%= equipamento.equipamentoId %>">Quantidade</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
                             </div>
                         </div>
                         <div class="form-check mb-3">
@@ -119,15 +145,35 @@
                             </label>
                         </div>
                         <div id="divProdutos" class="form-floating mb-3" style="display: none;">
-                            <select class="form-select" id="Produtos">
-                                <option value="" selected disabled>Selecione um Produto</option>
-                            </select>
-                            <!--fazer checkbox com os produtos usados no lugar do select-->
-                            <label for="Produto">Produtos</label>
+                            <label class="form-label mt-3 ">Produtos ultilizados:</label> <br>
+                            <div class="container border rounded p-3">
+                                <div class="row">
+                                    <% //listaEquipamentos.map(function(equipamento) { %><!--POR HORA EQUUIPAMENTOS-->
+                                        <div class="col-md-4">
+                                            <div class="form-check mt-3">
+                                                <input
+                                                    class="form-check-input border border-2 border-primary produto-checkbox"
+                                                    type="checkbox" id="produtoqntd"
+                                                    data-id="<%=/// produto.produtoId%>"
+                                                    value="<%=//produto.produtoId%>">
+                                                <!--usarei para mandar a quantidade -->
 
-                            <div class="form-floating mb-3 mt-1">
-                                <input type="number" class="form-control" id="QuantProduto" placeholder="">
-                                <label for="QuantProduto">Quantidade</label>
+                                                <label class="form-check-label fw-bold">
+                                                    <%=//produto.produtoNome%>
+                                                </label>
+                                                <!--uso a classe quantidade-box so aparece se marcar o campo do equip-->
+                                                <div class="form-floating mb-3 mt-1 quantidade-wrap"
+                                                    id="quant-wrapp<%=// produto.produtoId %>"
+                                                    style="display: none;">
+                                                    <input type="number" class="form-control"
+                                                        id="quant_<%=// produto.produtoId %>">
+                                                    <label
+                                                        for="quant_<%=// produto.produtoId %>">Quantidade</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%// }) %>
+                                </div>
                             </div>
 
                         </div>
@@ -146,43 +192,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById('checkEquipamento').addEventListener('change', function () {
-        const div = document.getElementById('divEquipamento');
-        if (this.checked) {
-            div.style.display = 'block';
-        } else {
-            div.style.display = 'none';
-        }
-
-
-    });
-    document.getElementById('checkProdutos').addEventListener('change', function () {
-        const divProdutos = document.getElementById('divProdutos');
-        if (this.checked) {
-            divProdutos.style.display = 'block';
-        } else {
-            divProdutos.style.display = 'none';
-        }
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        const input = document.getElementById("pesquisaPessoa");
-        const select = document.getElementById("Pessoa");
-
-        input.addEventListener("keyup", function () {
-            const filtro = this.value;
-            const pessoa = select.querySelectorall("option");
-
-            pessoa.forEach(opt => {
-                if (opt.value === "") return;
-
-                const texto = opt.textContent;
-                opt.style.display = texto.includes(filtro) ? "" : "none";
-            });
-        });
-    });
-
-
-
-</script>
